@@ -1,7 +1,9 @@
 - name: POC for play running from AWX
   hosts: all
+  variables:
+    somevar: defaultvalue
   tasks:
     - name: Hello AWX
       debug:
-        msg: "Hello AWX!"
+        msg: "Hello AWX! var is {{ somevar }}"
 
