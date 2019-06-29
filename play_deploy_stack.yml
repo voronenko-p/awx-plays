@@ -26,10 +26,10 @@
     - name: Ensure deployment folder exists
       file: path="{{ deployments_home }}/{{ project_name }}" state="directory"
 
-    - name: Template docker-compose
+    - name: "Template docker-compose to {{ deployments_home }}/{{ project_name }}/docker-compose.yml"
       template: src="docker-compose.yml.j2" dest="{{ deployments_home }}/{{ project_name }}/docker-compose.yml"
 
-    - name: Deploy stack
+    - name: "Deploy stack in {{ deployments_home }}/{{ project_name }}/"
       shell: "/usr/bin/docker stack deploy {{ project_name }} --compose-file docker-compose.yml"
       args:
         chdir: "{{ deployments_home }}/{{ project_name }}/"
