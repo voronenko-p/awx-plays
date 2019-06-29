@@ -24,7 +24,7 @@
   tasks:
 
     - name: Ensure deployment folder exists
-      file: path="{{ deployments_home }}/{{ project_name }}" state="present"
+      file: path="{{ deployments_home }}/{{ project_name }}" state="directory"
 
     - name: Template docker-compose
       template: src="docker-compose.yml.j2" dest="{{ deployments_home }}/{{ project_name }}/docker-compose.yml"
