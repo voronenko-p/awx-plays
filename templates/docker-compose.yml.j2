@@ -4,7 +4,6 @@ services:
     image: 'bitnami/mariadb:10.3'
     networks:
       - wordpress
-      - default
     volumes:
       - 'mariadb_data:/bitnami'
     environment:
@@ -15,7 +14,6 @@ services:
     image: 'bitnami/wordpress:5'
     networks:
       - wordpress
-      - default
     volumes:
       - 'wordpress_data:/home/coder/project'
     depends_on:
@@ -36,7 +34,6 @@ services:
     image: 'codercom/code-server'
     networks:
       - wordpress
-      - default
     volumes:
       - 'wordpress_data:/home/coder/project'
     depends_on:
