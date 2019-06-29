@@ -1,0 +1,7 @@
+---
+
+box_provider: "{{ lookup('env','BOX_PROVIDER') or 'default' }}"
+env: default
+
+deployments_home: "/home/{{ ansible_user_id }}/deployments"
+

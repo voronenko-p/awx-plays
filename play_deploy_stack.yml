@@ -1,0 +1,39 @@
+- name: Run with inline compose
+  hosts: localhost
+  gather_facts: no
+  vars:
+    # play parameters
+    project_name: awx
+    # /play parameters
+
+    root_dir: "{{ playbook_dir }}"
+    shared_dir: "{{ playbook_dir }}/shared"
+
+  pre_tasks:
+
+    - name: Check for common pretasks
+      local_action: stat path="{{shared_dir}}/common_pretasks.yml"
+      register: common_pretasks_exists
+      tags: always
+
+    - name: Include common pretasks
+      include_tasks: "{{shared_dir}}/common_pretasks.yml"
+      when: common_pretasks_exists.stat.exists == true
+      tags: always
+
+  tasks:
+
+    - name: Ensure deployment folder exists
+      file: path="{{ deployments_home }}/{{ project_name }}"
+
+    - name: Template docker-compose
+      template: src="docker-compose.yml.j2" dest="{{ deployments_home }}/{{ project_name }}/docker-compose.yml"
+
+    - name: Deploy stack
+      shell: docker stack deploy {{ project_name }} --compose-file docker-compose.yml
+      args:
+        chdir: "{{ deployments_home }}/{{ project_name }}/"
+      register: output
+
+    - debug:
+        var: output
