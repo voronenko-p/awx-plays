@@ -24,12 +24,13 @@ services:
       - WORDPRESS_DATABASE_USER=bn_wordpress
       - WORDPRESS_DATABASE_NAME=bitnami_wordpress
       - ALLOW_EMPTY_PASSWORD=yes
-    labels:
-      - "traefik.backend=wordpress-{{ project_name }}"
-      - "traefik.docker.network=wordpress"
-      - "traefik.frontend.rule=Host:wordpress-{{ project_name }}.local,{{ project_name }}.wordpress.local"
-      - "traefik.enable=true"
-      - "traefik.port=80"
+    deploy:
+      labels:
+        - "traefik.backend=wordpress-{{ project_name }}"
+        - "traefik.docker.network=wordpress"
+        - "traefik.frontend.rule=Host:wordpress-{{ project_name }}.local,{{ project_name }}.wordpress.local"
+        - "traefik.enable=true"
+        - "traefik.port=80"
   code-server:
     image: 'codercom/code-server'
     networks:
@@ -38,12 +39,13 @@ services:
       - 'wordpress_data:/home/coder/project'
     depends_on:
       - wordpress
-    labels:
-      - "traefik.backend=code-wordpress-{{ project_name }}"
-      - "traefik.docker.network=wordpress"
-      - "traefik.frontend.rule=Host:code-wordpress-{{ project_name }}.local,code-{{ project_name }}.wordpress.local"
-      - "traefik.enable=true"
-      - "traefik.port=8443"
+    deploy:
+      labels:
+        - "traefik.backend=code-wordpress-{{ project_name }}"
+        - "traefik.docker.network=wordpress"
+        - "traefik.frontend.rule=Host:code-wordpress-{{ project_name }}.local,code-{{ project_name }}.wordpress.local"
+        - "traefik.enable=true"
+        - "traefik.port=8443"
 volumes:
   mariadb_data:
     driver: local
