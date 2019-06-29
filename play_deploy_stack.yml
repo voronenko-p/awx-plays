@@ -1,6 +1,6 @@
 - name: Run with inline compose
   hosts: localhost
-  gather_facts: no
+  gather_facts: yes
   vars:
     # play parameters
     project_name: awx
