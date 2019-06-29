@@ -30,7 +30,7 @@
       template: src="docker-compose.yml.j2" dest="{{ deployments_home }}/{{ project_name }}/docker-compose.yml"
 
     - name: Deploy stack
-      shell: docker stack deploy {{ project_name }} --compose-file docker-compose.yml
+      shell: "/usr/bin/docker stack deploy {{ project_name }} --compose-file docker-compose.yml"
       args:
         chdir: "{{ deployments_home }}/{{ project_name }}/"
       register: output
